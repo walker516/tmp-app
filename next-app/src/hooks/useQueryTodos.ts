@@ -3,6 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export const useQueryTodos = () => {
+  const instance = axios.create({
+    baseURL: "https://jsonplaceholder.typicode.com/",
+  });
   const getTodos = async () => {
     const { data } = await axios.get(
       "https://jsonplaceholder.typicode.com/todos"

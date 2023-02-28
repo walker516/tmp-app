@@ -4,9 +4,20 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import React, { useCallback, useMemo, useState } from "react";
+import { Box, styled } from "@mui/material";
+
+const MainContent = styled(Box)(
+  () => `
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+`
+);
 
 const Grid = () => {
-  const gridStyle = useMemo(() => ({ height: 200, width: "100%" }), []);
+  const gridStyle = useMemo(() => ({ width: "100%" }), []);
   const [rowData, setRowData] = useState<IOlympicData[]>();
   const [columnDefs, setColumnDefs] = useState<(ColDef | ColGroupDef)[]>([
     {
@@ -70,14 +81,16 @@ const Grid = () => {
       .then((data: IOlympicData[]) => setRowData(data));
   }, []);
   return (
-    <div style={gridStyle} className="ag-theme-alpine">
-      <AgGridReact<IOlympicData>
-        rowData={rowData}
-        columnDefs={columnDefs}
-        defaultColDef={defaultColDef}
-        onGridReady={onGridReady}
-      ></AgGridReact>
-    </div>
+    <MainContent style={gridStyle}>
+      <MainContent className="ag-theme-alpine">
+        <AgGridReact<IOlympicData>
+          rowData={rowData}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          onGridReady={onGridReady}
+        ></AgGridReact>
+      </MainContent>
+    </MainContent>
   );
 };
 
